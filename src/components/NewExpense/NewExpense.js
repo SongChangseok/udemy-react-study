@@ -1,10 +1,19 @@
 import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
+import { v4 } from "uuid";
+("uuid");
 
-const NewExpense = () => {
+const NewExpense = ({ onAddExpense }) => {
+  const saveExpenseDataHandler = (userInput) => {
+    const expenseData = {
+      ...userInput,
+      id: v4()
+    };
+    onAddExpense(expenseData);
+  };
   return (
     <div className="new-expense">
-      <ExpenseForm />
+      <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
     </div>
   );
 };
