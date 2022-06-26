@@ -35,6 +35,7 @@ const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
 
     onSaveExpenseData({
       ...userInput,
+      value: Number(userInput.value),
       date: new Date(userInput.date)
     });
     setUserInput(initUserInput);
