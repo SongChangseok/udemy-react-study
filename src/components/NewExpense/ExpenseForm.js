@@ -7,7 +7,7 @@ const initUserInput = {
   date: ""
 };
 
-const ExpenseForm = ({ onSaveExpenseData }) => {
+const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
   //   const [title, setTitle] = useState();
   //   const [amount, setAmount] = useState();
   //   const [date, setDate] = useState();
@@ -29,11 +29,17 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log(title, amount, date);
-    console.log(userInput);
-    onSaveExpenseData(userInput);
+
+    if (userInput.title == "" || userInput.amount == "" || userInput.date == "")
+      return console.log("입력 필요");
+
+    onSaveExpenseData({
+      ...userInput,
+      date: new Date(userInput.date)
+    });
     setUserInput(initUserInput);
   };
+
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -67,6 +73,9 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
